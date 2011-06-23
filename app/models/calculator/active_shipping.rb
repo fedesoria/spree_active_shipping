@@ -33,9 +33,7 @@ class Calculator::ActiveShipping < Calculator
                               :city => addr.city,
                               :zip => addr.zipcode)
 
-    rates = Rails.cache.fetch(cache_key(order)) do
-      rates = retrieve_rates(origin, destination, packages(order))
-    end
+    rates = retrieve_rates(origin, destination, packages(order))
 
     return nil if rates.empty?
     # rate = rates[self.class.service_name] #TODO - Remove the service_name from the USPS calculators (no longer needed)
